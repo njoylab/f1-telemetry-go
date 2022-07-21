@@ -12,7 +12,7 @@ type MarshalZone struct {
 }
 
 type WeatherForecastSample struct {
-	SessionType            uint8 // 0 = unknown, 1 = P1, 2 = P2, 3 = P3, 4 = Short P, 5 = Q1, 6 = Q2, 7 = Q3, 8 = Short Q, 9 = OSQ, 10 = R, 11 = R2, 12 = Time Trial
+	SessionType            uint8 // 0 = unknown, 1 = P1, 2 = P2, 3 = P3, 4 = Short P, 5 = Q1, 6 = Q2, 7 = Q3, 8 = Short Q, 9 = OSQ, 10 = R, 11 = R2, 12 = R3, 13 = Time Trial
 	TimeOffset             uint8 // Time in minutes the forecast is for
 	Weather                uint8 // Weather 0 = clear, 1 = light cloud, 2 = overcast, 3 = light rain, 4 = heavy rain, 5 = storm
 	TrackTemperature       int8  // Track temp. in degrees celsius
@@ -31,11 +31,11 @@ type PacketSessionData struct {
 	TrackLength               uint16                    // Track length in metres
 	SessionType               uint8                     // 0 = unknown, 1 = P1, 2 = P2, 3 = P3, 4 = Short P, 5 = Q1, 6 = Q2, 7 = Q3, 8 = Short Q, 9 = OSQ, 10 = R, 11 = R2, 12 = Time Trial
 	TrackID                   int8                      // -1 for unknown, 0-21 for tracks, see docs/IDS.md#track-ids
-	Formula                   uint8                     // Formula, 0 = F1 Modern, 1 = F1 Classic, 2 = F2, 3 = F1 Generic
+	Formula                   uint8                     // Formula, 0 = F1 Modern, 1 = F1 Classic, 2 = F2, 3 = F1 Generic, 4 = Beta, 5 = Supercars, 6 = Esports, 7 = F2 2021
 	SessionTimeLeft           uint16                    // Time left in session in seconds
 	SessionDuration           uint16                    // Session duration in seconds
 	PitSpeedLimit             uint8                     // Pit speed limit in kilometres per hour
-	GamePaused                uint8                     // Whether the game is paused
+	GamePaused                uint8                     // Whether the game is paused – network game only
 	IsSpectating              uint8                     // Whether the player is spectating
 	SpectatorCarIndex         uint8                     // Index of the car being spectated
 	SliProNativeSupport       uint8                     // SLI Pro support, 0 = inactive, 1 = active
@@ -62,4 +62,8 @@ type PacketSessionData struct {
 	DRSAssist                 uint8                     // 0 = off, 1 = on
 	DynamicRacingLine         uint8                     // 0 = off, 1 = corners only, 2 = full
 	DynamicRangeLineType      uint8                     // 0 = 2D, 1 = 3D
+	GameMode                  uint8                     // Game mode id - see appendix
+	RuleSet                   uint8                     // Ruleset - see appendix
+	TimeOfDay                 uint32                    // Local time of day - minutes since midnight
+	SessionLength             uint8                     // 0 = None, 2 = Very Short, 3 = Short, 4 = Medium, 5 = Medium Long, 6 = Long, 7 = Full
 }
